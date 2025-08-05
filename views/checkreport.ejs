@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="../styling/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>checkReport</title>
+</head>
+<body style="overflow: hidden;">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#"><i class="bi bi-heart-pulse"></i>   MediCheck</a>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+            <!-- <a class="nav-link active" aria-current="page" href="#">Logout</a> -->
+            </li>
+        </ul>
+        </div>
+    </div>
+    </nav>
+    <div class="row upload">
+            <div class="input-files">
+                <h3>Upload Report <i class="bi bi-upload"></i></h3>
+                <form action="/userreport" method="post" enctype="multipart/form-data">
+                    <input type="file" name="report" id="report"  accept=".jpg,.jpeg,.png,.pdf" style="display: none;">
+                </form>
+            </div>
+    </div>
+    <center><span class="loader" style="z-index: 5;"></span></center>
+    <script>
+        const input = document.querySelector('.input-files');
+        const insert = document.querySelector('#report');
+        const nav = document.querySelector('.navbar');
+        const upload = document.querySelector('.upload');
+        input.addEventListener('click', () => {
+            insert.click();
+        })
+        insert.addEventListener('change', (e) => {
+            e.preventDefault();
+            insert.form.submit();
+            nav.style.display = 'none';
+            upload.style.display = 'none';
+            document.querySelector('.loader').style.display = 'block';
+        });
+    </script>
+</body>
+</html>

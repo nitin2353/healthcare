@@ -1,0 +1,33 @@
+{
+  "name": "health-care",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@google-cloud/vision": "^5.2.0",
+    "@google/genai": "^1.7.0",
+    "@google/generative-ai": "^0.24.1",
+    "cohere-ai": "^7.17.1",
+    "cookie-parser": "^1.4.7",
+    "dotenv": "^16.5.0",
+    "ejs": "^3.1.10",
+    "env": "^0.0.2",
+    "express": "^5.1.0",
+    "express-session": "^1.18.1",
+    "multer": "^2.0.1",
+    "node-fetch": "^3.3.2",
+    "nodemon": "^3.1.10",
+    "openai": "^5.8.2",
+    "pdf-parse": "^1.1.1",
+    "pg": "^8.16.2",
+    "sharp": "^0.34.2",
+    "tesseract.js": "^6.0.1"
+  }
+}

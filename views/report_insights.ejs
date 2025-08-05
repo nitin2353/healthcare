@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+     <link rel="stylesheet" href="../styling/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report insights</title>
+    <style>
+        @media print {
+        body {
+            background: white !important;
+            color: black !important;
+        }
+        .content-to-download {
+            background: white !important;
+        }
+        }
+
+    </style>
+</head>
+<body style="background-color: #f9fafb; user-select: none; color: #000;">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary box-shadow" style="top: 0% !important;">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#"><i class="bi bi-heart-pulse"></i>   MedInsights</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="export" style="position: absolute;"><i class="bi bi-download"></i> Export</button>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                
+            </li>
+        </ul>
+        </div>
+    </div>
+    </nav>
+    <section class="container content-to-download" >
+        <div class="head row" style="margin-top: 70px !important;">
+            <h1>Medical Report Insights</h1>
+        </div>
+        <div class="info row box-shadow">
+            <h5>Patient Information</h5>
+            <div class="col-lg-4 col-md-4 col-sm-12">
+                <span style="font-size: 14px;">Name</span>
+                <h6><%=name%></h6>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-12">
+                <span style="font-size: 14px;">Age</span>
+                <h6><%=age%></h6>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-12">
+                <span style="font-size: 14px;">Gender</span>
+               <h6><%=gender%></h6>
+            </div>
+        </div>
+        <!-- reprt Insights -->
+        <div class="report-data box-shadow">
+            <div class="row ">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <!-- <h4 style="display: block; text-align: center;">Laboratory Text Results</h4>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12 mb-3"> -->
+                    <h5 style="margin-top: 0%; text-align: center;" class="repname"></h5>
+                </div>
+            </div>
+            
+            <table class="table">
+                <tr>
+                    <th scope="col">Test Name</th>
+                    <th scope="col">Result</th>
+                    <th scope="col">Refrence</th>
+                    <th scope="col">Status</th>
+                </tr>
+            </table>
+        </div>
+    </section>
+
+    <section class="container" style="width: 90vw !important;">
+        <div class="row d-flex justify-content-center ">
+            <div class="col-lg-5 col-md-5 col-sm-12 mt-4 bg-white p-4 m-3 box-shadow">
+                <div class="key">
+                    <h4>Key Finding</h4>
+                    <div class="key-content">
+                        <p class="warn"></p>
+                        <p class="inf"></p>
+                        <p class="normal"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-5 col-sm-12 mt-4 bg-white p-4 m-3 box-shadow">
+                <div class="risk">
+                    <h4>Risk Assessment</h4>
+                    
+                    <h6 class="mt-4 d-block">High Risk</h6><span class="float-end warning_risk"></span>
+                    <progress class="warning_risk_bar" max="100"></progress><br>
+
+                    <h6 class="mt-4 d-block">Mordrate Risk</h6><span class="float-end mordrate_risk"></span>
+                    <progress class="mordrate_risk_bar" max="100"></progress><br><br>
+
+                    <h6>Low Risk</h6><span class="d-flex float-end normal_risk"></span>
+                    <progress class="normal_risk_bar" max="100"></progress>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+
+    <script>
+        let table = document.querySelector('.table')
+        var arr = ['test', 'result', 'range', 'final_result'];
+        var reportName = "";
+        var ass = '';
+        let warn = document.querySelector('.warn')
+        let normal = document.querySelector('.normal')
+        let info = document.querySelector('.inf')
+
+        document.addEventListener('DOMContentLoaded', () => {
+            fetch('/insights-report')
+            .then(Response => Response.json())
+            .then(data => {
+                
+               data.forEach((element, indx) => {
+                    
+                    let tr = document.createElement('tr');
+                    var td = [];
+                    if(indx === 0){
+                        reportName = element["report_name"] 
+                        ass = element["risk_assessment"]
+                        parseSummary(element, reportName, ass);
+                        
+                        return;
+                    }
+                    for(let i = 0 ;i <=3 ; i++){
+                        td[i] = document.createElement('td');
+                        td[i].innerHTML = element[arr[i]];
+                        tr.appendChild(td[i]).style='border: 1px solid #C5CDC9; border-right: none; border-left : none';
+                    }
+                    
+                    table.appendChild(tr); 
+               });
+            })
+        })
+
+        function parseSummary(summary, reportName, assessment){
+                // console.log(assessment['Normal'])
+                document.querySelector('.repname').innerHTML = reportName;
+
+                console.log()
+                summary["summary"].forEach((e,i) => {
+                    if(i === 2)
+                    normal.innerHTML = `<i class="bi bi-check-circle-fill"></i> ${e}`
+                })
+                summary["summary"].forEach((e,i) => {
+                    if(i === 1)
+                    info.innerHTML = `<i class="bi bi-info-circle-fill"></i> ${e}`
+                })
+                summary["summary"].forEach((e,i) => {
+                if(i === 0)
+                    warn.innerHTML = `<i class="bi bi-exclamation-triangle-fill"></i> ${e}`
+                })
+
+
+                document.querySelector('.warning_risk_bar').value = assessment["warning"].replace('%',"");
+                document.querySelector('.warning_risk').innerHTML = assessment["warning"];
+                document.querySelector('.mordrate_risk_bar').value = assessment["modrate"].replace('%',"");
+                document.querySelector('.mordrate_risk').innerHTML = assessment["modrate"];
+                document.querySelector('.normal_risk_bar').value = assessment["normal"].replace('%',"");
+                document.querySelector('.normal_risk').innerHTML = assessment["normal"];
+
+        }
+
+
+        document.querySelector('.export').addEventListener('click', () => {
+        let filename = document.querySelector('.repname').innerText.trim();
+        var element = document.querySelector('.content-to-download');
+
+        var opt = {
+            margin:       0.5,
+            filename:     `${filename}-Report.pdf`,
+            image:        { type: 'jpeg', quality: 0.98 },
+            html2canvas:  { scale: 2, useCORS: true },
+            jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
+        };
+
+        html2pdf().set(opt).from(element).save();
+        });
+
+    </script>
+</body>
+</html>

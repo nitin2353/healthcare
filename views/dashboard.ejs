@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../styling/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+</head>
+<body style="background-color: #f9fafb; user-select: none; color: #000;">
+     <nav class="navbar navbar-expand-lg bg-body-tertiary box-shadow" style="top: 0% !important;">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#"><i class="bi bi-heart-pulse"></i>   MedInsights</a>
+        <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"> -->
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                
+            </li>
+        </ul>
+        </div>
+    </div>
+    </nav>
+    <section class="container" id="content-to-download" >
+        <div class="head row" style="margin-top: 70px !important;">
+            <h1>Medical Report Dashboard</h1>
+            <p>Monitor Patient report and risk Assessment</p>
+        </div>
+        <div class="row mt-4">
+            <div class="col me-3 p-2 box-shadow ">
+                <div class="summarycard1">
+                    <h6>High Risk Reports</h6>
+                    <i class="bi bi-exclamation-triangle-fill d-inline float-end"></i>
+                    <p class="highRisk"></p>
+                    <!-- <h6>View Details</h6><i class="bi bi-caret-right-fill"></i> -->
+                </div>
+            </div>
+            <div class="col me-3 p-2 box-shadow ">
+                <div class="summarycard2">
+                    <h6>Tranding Issues</h6>
+                    <i class="bi bi-graph-up d-inline float-end"></i>
+                    <p class="mordrateRisk"></p>
+                    <!-- <h6>View Full Insights</h6><i class="bi bi-caret-right-fill"></i> -->
+                </div>
+            </div>
+            <div class="col me-3 p-2 box-shadow ">
+                <div class="summarycard3">
+                    <h6>Normal Report</h6>
+                    <i class="bi bi-check-circle-fill  d-inline float-end"></i>
+                    <p class="normalRisk"></p>
+                    <!-- <h6>View All</h6><i class="bi bi-caret-right-fill"></i> -->
+                </div>
+            </div>
+        </div>
+
+        <div class="row patients-overview mt-4">
+            <div class="cards-container col-lg-8 me-3 border p-1" >
+                <div class="row border-bottom p-2">
+                    <h4>Patients-overview</h4>
+                </div>               
+            </div>
+        
+            <div class="risk-graph col me-3 border">
+                <div class="row border-bottom p-2">
+                    <h4>Risk Distribution</h4>
+                </div>
+                <div class="graph p-2">
+                    <h6 style="display: inline;">Low Risk</h6><span class="float-end prog_low">10%</span>
+                    <br>
+                    <progress max="100" style="width: 100%;" class="p_l"></progress>
+                    <h6 style="display: inline;">Mordrate Risk</h6><span class="float-end prog_mod">60%</span>
+                    <br>
+                    <progress max="100" style="width: 100%;" class="p_m"></progress>
+                    <h6 style="display: inline;">High Risk</h6><span class="float-end prog_high">90%</span>
+                    <br>
+                    <progress max="100" style="width: 100%;" class="p_h"></progress>
+                </div>
+                <div class="m-3">
+                    <h1 class="d-flex justify-content-center rcount"></h1>
+                    <p class="d-flex justify-content-center">Total Report Count</p>
+                </div>
+            </div>  
+        </div>
+    </section>
+   <script src="../js/dashboard.js"></script>
+</body>
+</html>
